@@ -15,15 +15,9 @@ internal class UpdateHandler(
     private val handleUpdate: UpdateHandlerEnvironment.() -> Unit
 ) : Handler {
 
-    override fun checkUpdate(update: Update): Boolean =
-        if (update.message == null) {
-            false
-        } else {
-            filter.checkFor(update.message)
-        }
+    override fun checkUpdate(update: Update): Boolean = true
 
     override fun handleUpdate(bot: Bot, update: Update) {
-        checkNotNull(update.message)
         val updateHandlerEnv = UpdateHandlerEnvironment(bot, update)
         handleUpdate(updateHandlerEnv)
     }
