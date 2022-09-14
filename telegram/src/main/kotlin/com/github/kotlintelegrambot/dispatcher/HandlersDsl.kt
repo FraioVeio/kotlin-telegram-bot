@@ -1,33 +1,11 @@
 package com.github.kotlintelegrambot.dispatcher
 
+import com.github.kotlintelegrambot.dispatcher.handlers.*
 import com.github.kotlintelegrambot.dispatcher.handlers.CallbackQueryHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.ChannelHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.CommandHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.ContactHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.DiceHandler
-import com.github.kotlintelegrambot.dispatcher.handlers.ErrorHandler
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleAnimation
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleAudio
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleCallbackQuery
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleChannelPost
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleCommand
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleContact
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleDice
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleDocument
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleError
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleGame
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleInlineQuery
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleLocation
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleMessage
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleNewChatMembers
-import com.github.kotlintelegrambot.dispatcher.handlers.HandlePhotos
-import com.github.kotlintelegrambot.dispatcher.handlers.HandlePollAnswer
-import com.github.kotlintelegrambot.dispatcher.handlers.HandlePreCheckoutQuery
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleSticker
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleText
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleVideo
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleVideoNote
-import com.github.kotlintelegrambot.dispatcher.handlers.HandleVoice
 import com.github.kotlintelegrambot.dispatcher.handlers.InlineQueryHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.LocationHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.MessageHandler
@@ -157,4 +135,7 @@ fun Dispatcher.pollAnswer(body: HandlePollAnswer) {
 
 fun Dispatcher.dice(body: HandleDice) {
     addHandler(DiceHandler(body))
+}
+fun Dispatcher.update(handleUpdate: HandleUpdate) {
+    addHandler(UpdateHandler(All, handleUpdate))
 }

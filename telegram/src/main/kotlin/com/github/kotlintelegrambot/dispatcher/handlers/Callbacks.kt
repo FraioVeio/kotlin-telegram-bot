@@ -13,7 +13,7 @@ import com.github.kotlintelegrambot.entities.files.VideoNote
 import com.github.kotlintelegrambot.entities.files.Voice
 import com.github.kotlintelegrambot.entities.stickers.Sticker
 
-typealias HandleUpdate = (Bot, Update) -> Unit
+typealias HandleUpdate = UpdateHandlerEnvironment.() -> Unit
 
 typealias HandleError = ErrorHandlerEnvironment.() -> Unit
 
