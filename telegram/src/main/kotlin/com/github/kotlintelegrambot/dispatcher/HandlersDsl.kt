@@ -1,5 +1,6 @@
 package com.github.kotlintelegrambot.dispatcher
 
+import com.github.kotlintelegrambot.dispatcher.handlers.*
 import com.github.kotlintelegrambot.dispatcher.handlers.CallbackQueryHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.ChannelHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.CommandHandler
@@ -160,6 +161,9 @@ fun Dispatcher.pollAnswer(body: HandlePollAnswer) {
 
 fun Dispatcher.dice(body: HandleDice) {
     addHandler(DiceHandler(body))
+}
+fun Dispatcher.update(handleUpdate: HandleUpdate) {
+    addHandler(UpdateHandler(All, handleUpdate))
 }
 
 infix fun Handler.requires(predicate: (Update) -> Boolean): Handler {
