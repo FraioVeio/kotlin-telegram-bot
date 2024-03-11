@@ -234,6 +234,7 @@ internal interface ApiService {
         @Part("width") width: RequestBody?,
         @Part("height") height: RequestBody?,
         @Part("caption") caption: RequestBody?,
+        @Part("parse_mode") parseMode: RequestBody?,
         @Part(ApiConstants.DISABLE_NOTIFICATION) disableNotification: RequestBody?,
         @Part(ApiConstants.REPLY_TO_MESSAGE_ID) replyToMessageId: RequestBody?,
         @Part(ApiConstants.ALLOW_SENDING_WITHOUT_REPLY) allowSendingWithoutReply: RequestBody?,
@@ -249,6 +250,7 @@ internal interface ApiService {
         @Field("width") width: Int?,
         @Field("height") height: Int?,
         @Field("caption") caption: String?,
+        @Field("parse_mode") parseMode: ParseMode?,
         @Field(ApiConstants.DISABLE_NOTIFICATION) disableNotification: Boolean?,
         @Field(ApiConstants.REPLY_TO_MESSAGE_ID) replyToMessageId: Long?,
         @Field(ApiConstants.ALLOW_SENDING_WITHOUT_REPLY) allowSendingWithoutReply: Boolean?,
@@ -475,6 +477,48 @@ internal interface ApiService {
         @Field(ApiConstants.CHAT_ID) chatId: ChatId,
         @Field(ApiConstants.USER_ID) userId: Long,
         @Field("until_date") untilDate: Long?,
+    ): Call<Response<Boolean>>
+
+    @FormUrlEncoded
+    @POST("approveChatJoinRequest")
+    fun approveChatJoinRequest(
+        @Field(ApiConstants.CHAT_ID) chatId: ChatId,
+        @Field(ApiConstants.USER_ID) userId: Long,
+    ): Call<Response<Boolean>>
+
+    @FormUrlEncoded
+    @POST("declineChatJoinRequest")
+    fun declineChatJoinRequest(
+        @Field(ApiConstants.CHAT_ID) chatId: ChatId,
+        @Field(ApiConstants.USER_ID) userId: Long,
+    ): Call<Response<Boolean>>
+
+    @FormUrlEncoded
+    @POST("createChatInviteLink")
+    fun createChatInviteLink(
+        @Field(ApiConstants.CHAT_ID) chatId: ChatId,
+        @Field("name") name: String?,
+        @Field("expire_date") expireDate: Int?,
+        @Field("member_limit") memberLimit: Int?,
+        @Field("creates_join_request") createsJoinRequest: Boolean?,
+    ): Call<Response<Boolean>>
+
+    @FormUrlEncoded
+    @POST("editChatInviteLink")
+    fun editChatInviteLink(
+        @Field(ApiConstants.CHAT_ID) chatId: ChatId,
+        @Field("invite_link") inviteLink: String?,
+        @Field("name") name: String?,
+        @Field("expire_date") expireDate: Int?,
+        @Field("member_limit") memberLimit: Int?,
+        @Field("creates_join_request") createsJoinRequest: Boolean?,
+    ): Call<Response<Boolean>>
+
+    @FormUrlEncoded
+    @POST("revokeChatInviteLink")
+    fun revokeChatInviteLink(
+        @Field(ApiConstants.CHAT_ID) chatId: ChatId,
+        @Field("invite_link") inviteLink: String?,
     ): Call<Response<Boolean>>
 
     @FormUrlEncoded
@@ -810,6 +854,9 @@ internal interface ApiService {
         @Field("send_phone_number_to_provider") sendPhoneNumberToProvider: Boolean?,
         @Field("send_email_to_provider") sendEmailToProvider: Boolean?,
         @Field("is_flexible") isFlexible: Boolean?,
+        @Field("recurring") recurring: Boolean?,
+        @Field("max_tip_amount") maxTipAmount: Long?,
+        @Field("suggested_tip_amounts") suggestedTipAmounts: List<Long>?,
         @Field(ApiConstants.DISABLE_NOTIFICATION) disableNotification: Boolean?,
         @Field(ApiConstants.REPLY_TO_MESSAGE_ID) replyToMessageId: Long?,
         @Field(ApiConstants.ALLOW_SENDING_WITHOUT_REPLY) allowSendingWithoutReply: Boolean?,

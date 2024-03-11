@@ -3,6 +3,7 @@ package com.github.kotlintelegrambot.dispatcher
 import com.github.kotlintelegrambot.dispatcher.handlers.*
 import com.github.kotlintelegrambot.dispatcher.handlers.CallbackQueryHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.ChannelHandler
+import com.github.kotlintelegrambot.dispatcher.handlers.ChatMemberHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.CommandHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.ContactHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.DiceHandler
@@ -12,6 +13,7 @@ import com.github.kotlintelegrambot.dispatcher.handlers.HandleAnimation
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleAudio
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleCallbackQuery
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleChannelPost
+import com.github.kotlintelegrambot.dispatcher.handlers.HandleChatMember
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleCommand
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleContact
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleDice
@@ -19,8 +21,11 @@ import com.github.kotlintelegrambot.dispatcher.handlers.HandleDocument
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleError
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleGame
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleInlineQuery
+import com.github.kotlintelegrambot.dispatcher.handlers.HandleLeftChatMember
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleLocation
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleMessage
+import com.github.kotlintelegrambot.dispatcher.handlers.HandleMyChatMember
+import com.github.kotlintelegrambot.dispatcher.handlers.HandleNewChatJoinRequest
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleNewChatMembers
 import com.github.kotlintelegrambot.dispatcher.handlers.HandlePhotos
 import com.github.kotlintelegrambot.dispatcher.handlers.HandlePollAnswer
@@ -32,8 +37,11 @@ import com.github.kotlintelegrambot.dispatcher.handlers.HandleVideoNote
 import com.github.kotlintelegrambot.dispatcher.handlers.HandleVoice
 import com.github.kotlintelegrambot.dispatcher.handlers.Handler
 import com.github.kotlintelegrambot.dispatcher.handlers.InlineQueryHandler
+import com.github.kotlintelegrambot.dispatcher.handlers.LeftChatMemberHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.LocationHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.MessageHandler
+import com.github.kotlintelegrambot.dispatcher.handlers.MyChatMemberHandler
+import com.github.kotlintelegrambot.dispatcher.handlers.NewChatJoinRequestHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.NewChatMembersHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.PollAnswerHandler
 import com.github.kotlintelegrambot.dispatcher.handlers.PreCheckoutQueryHandler
@@ -111,6 +119,10 @@ fun Dispatcher.channel(body: HandleChannelPost) {
     addHandler(ChannelHandler(body))
 }
 
+fun Dispatcher.chatJoinRequest(body: HandleNewChatJoinRequest) {
+    addHandler(NewChatJoinRequestHandler(body))
+}
+
 fun Dispatcher.inlineQuery(body: HandleInlineQuery) {
     addHandler(InlineQueryHandler(body))
 }
@@ -155,6 +167,10 @@ fun Dispatcher.newChatMembers(body: HandleNewChatMembers) {
     addHandler(NewChatMembersHandler(body))
 }
 
+fun Dispatcher.leftChatMember(body: HandleLeftChatMember) {
+    addHandler(LeftChatMemberHandler(body))
+}
+
 fun Dispatcher.pollAnswer(body: HandlePollAnswer) {
     addHandler(PollAnswerHandler(body))
 }
@@ -168,4 +184,12 @@ fun Dispatcher.update(handleUpdate: HandleUpdate) {
 
 infix fun Handler.requires(predicate: (Update) -> Boolean): Handler {
     return ExtendedHandler(this, predicate)
+}
+
+fun Dispatcher.myChatMember(handleMyChatMember: HandleMyChatMember) {
+    addHandler(MyChatMemberHandler(handleMyChatMember = handleMyChatMember))
+}
+
+fun Dispatcher.chatMember(handleChatMember: HandleChatMember) {
+    addHandler(ChatMemberHandler(handleChatMember = handleChatMember))
 }
